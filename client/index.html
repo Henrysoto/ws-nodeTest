@@ -1,0 +1,57 @@
+<html>
+	<header>
+		<meta charset="utf-8">
+		<title>WS Chat 2</title>
+	</header>
+	<body>
+		<h3>Chat</h3>
+		<p>
+			<textarea id="chat" style="resize: none; width: 225px; height: 100px; margin-left: 3px;" disabled></textarea>
+		</p>
+		<form id="sendform">
+			<fieldset style="width: 200px;">
+				<p>
+					<label for="user">Nickname</label>
+					<input type="text" name="user" id="user">
+				</p>
+				<p>
+					<label for="msg">Message</label>
+					<input type="text" name="message" id="msg">
+				</p>
+				<p>
+					<button type="submit">Envoyer</button>
+				</p>
+			</fieldset>
+		</form>
+
+		<script type="text/javascript" src="res/js/socket.io.js"></script>
+		<script type="text/javascript">
+			const txtarea = document.querySelector('#chat');
+			const frm = document.querySelector('#sendform');
+			const user = document.querySelector('#user');
+			const msg = document.querySelector('#msg');
+			const socket = io();
+
+			/*
+			conn.onmessage = (e) => {
+			    const data = JSON.parse(e.data);
+			    txtarea.value += (data['user']+': '+data['message']+'\n');
+			    console.log(e.data);
+			};
+			*/
+
+			frm.addEventListener("submit", (e) => {
+				e.preventDefault();
+				let data = JSON.stringify({user: user.value, message: msg.value})
+				socket.emit('message', data);
+				msg.value = '';
+			});
+
+			socket.on('message', (msg) => {
+				let data = JSON.parse(msg);
+				txtarea.value += (data['user']+': '+data['message']+'\n');
+				txtarea.scrollTop = txtarea.scrollHeight;
+			});
+		</script>
+	</body>
+</html>
