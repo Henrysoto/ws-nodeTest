@@ -34,14 +34,6 @@
 			const msg = document.querySelector('#msg');
 			const socket = io();
 
-			/*
-			conn.onmessage = (e) => {
-			    const data = JSON.parse(e.data);
-			    txtarea.value += (data['user']+': '+data['message']+'\n');
-			    console.log(e.data);
-			};
-			*/
-
 			frm.addEventListener("submit", (e) => {
 				e.preventDefault();
 				let data = JSON.stringify({user: user.value, message: msg.value})
