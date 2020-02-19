@@ -16,9 +16,7 @@ const Port = 8080
 const server = require('http').createServer((req, res) => {
 
     let filePath = path.join(__dirname, '../client', req.url);
-    //logger.info('FILE ASKED : ' + filePath);
-
-    // Default page for visitor calling directly URL
+    
     if (req.url == '/')
         filePath = path.join(__dirname, '../client', 'index.html');
 
