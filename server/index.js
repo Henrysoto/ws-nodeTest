@@ -1,10 +1,7 @@
-// DEPENDENCIES
 const   fs       = require('fs'),
         winston  = require('winston'),
         path     = require('path');
 
-
-// LOGS
 const logger = winston.createLogger({
     level     : 'info',
     format    : winston.format.json(),
@@ -15,12 +12,7 @@ const logger = winston.createLogger({
     ]
 });
 
-
-// CONSTANTS
 const Port = 8080
-
-
-// STARTING HTTPS SERVER 
 const server = require('http').createServer((req, res) => {
 
     let filePath = path.join(__dirname, '../client', req.url);
@@ -87,7 +79,6 @@ const server = require('http').createServer((req, res) => {
 
 let clients = []
 
-//OPENING SOCKET
 const io = require('socket.io')(server).on('connection', (socket) => {
 
     if (clients.indexOf(socket) == -1)
